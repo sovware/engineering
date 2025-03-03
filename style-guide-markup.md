@@ -258,3 +258,69 @@ It is easily installed through npm: `npm install pa11y --save-dev` and can be ad
 },
 ```
 Running this process allows the engineer to be alerted if a code-level or design change violates the project’s accessibility standards.
+
+
+### Manual Testing
+Automated testing will often only get you so far; that is why we also recommend getting a human’s eye on the accessibility in a project and executing manual tests alongside any automation. This process is largely done by an engineer reviewing the interface in a browser or screen reader and involves running your project through all of the WCAG guidelines at the compliance level that is applicable to your specific project (A, AA, or AAA). The WCAG Quickref is a great place to see all these guidelines in one place. Internally, we also have a spreadsheet template to help manage this process.
+
+Manual accessibility testing should be run in conjunction with automated testing to help identify all the potential areas of improvement on a project as well as resolve false-positives that may appear during the automated testing process. Tests should be run on a reasonable sample size of templates to help produce the most comprehensive analysis possible – preferably the same templates used in the automated testing process.
+
+Combining automated and manual testing practices allows weDevs to maintain a high level of compliance on all projects and it is critical to the work we do.
+
+## Progressive Enhancement
+Progressive enhancement means building a website that is robust, fault tolerant, and accessible. Progressive enhancement begins with a baseline experience and builds out from there, adding features for browsers that support them. It does not require us to select supported browsers or revert to table-based layouts. Baselines for browser and device support are set on a project-by-project basis.
+
+At SovWare, we employ progressive enhancement to ensure that the sites we build for our clients are accessible to as many users as possible.
+
+### Polyfills
+When writing markup that does not have wide browser support, using polyfills can help bring that functionality to those older browsers. Providing support for older browsers is incredibly important to the business objectives of our clients. In an effort to prevent code bloat, we only provide polyfills for features that are functionally critical to a site.
+
+### Feature Detection
+At weDevs, the concept of feature detection is used to test browser support for new features that do not yet have full support across the board. The concept of feature detection is to test if a feature is supported by the browser and if not supported, conditionality run code to provide a similar experience with browsers that do support the feature. While popular [feature detection libraries](https://modernizr.com/) exist, there are [feature detection techniques](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Cross_browser_testing/Feature_detection#JavaScript) for JavaScript and @supports at-rule for CSS that can be utilized.
+
+
+## SVG
+
+SVG has become a prevalent means for displaying rich vector graphics. SVG images are great for graphics with well-defined lines and simple color palettes that can be defined algorithmically, e.g. logos, iconography, and illustrations. Here are a few known benefits of SVG:
+
+- Scalability – They look great on retina displays and at any size, i.e. they’re resolution independent.
+- File Size – Small file size and compresses well.
+- Styling – Manipulate fill, stroke, and even animate.
+Be mindful that SVGs have potential limitations as well:
+
+- Adding unvetted SVG graphics to a page has the potential to introduce a security vulnerability. This is why WordPress does not allow uploading of SVG by default. Read: SVG uploads in WordPress (the Inconvenient Truth) for more information.
+- SVG is not ideal for photographic images or images with complex visual data. In this case, raster formats (JPG, PNG, GIF) will be a better choice.
+- Raster images should not be converted to SVG. It will likely result in a raster image being embedded within the SVG document, which will not provide the same affordances (i.e. CSS manipulation) as a genuine SVG. For further reading on vector vs. raster formats, and when to use each: Adding vector graphics to the Web.
+
+### SVG Sprites
+Combining SVG images in a single file (usually called svg-defs.svg) has the benefit of helping limit HTTP requests within a document that contains multiple icons. An SVG sprite file can be embedded within a document and referenced within the template source with a <use> element. The creation of this icon system should be automated through your build process. [Read Icon Systems with SVG Sprites for more information](https://css-tricks.com/svg-sprites-use-better-icon-fonts/).
+
+### SVG embedded in HTML
+When placing an SVG in markup (i.e. inline) be sure to use the following guidelines:
+
+- If the SVG is purely decorative:
+-- An empty `alt=""` can be used: `<img alt="">`, or
+-- Use ARIA attributes to hide the element from assistive technologies: `<svg aria-hidden="true">`
+- If the SVG is meaningful then use `<title>` and possibly even `<desc>` or `aria-label` to describe the graphic. Also, be sure to add an id to each element, and appropriate ARIA to overcome a known bug in Chrome and Firefox.
+
+```html
+<!-- role="img" to exclude image from being traversed by certain browsers w/ group role --> <svg role="img" aria-labelledby="uniqueTitleID uniqueDescID">     <title id="uniqueTitleID">The Title</title>     <desc id="uniqueDescID">Description goes here...</desc> </svg>
+```
+
+- Use `aria-label` if the SVG is linked and has no supporting text.
+```html
+<a href="http://twitter.com/sovware" aria-label="Follow SovWare on Twitter"><svg><use xlink:href="#icon-twitter"></use></svg> </a>
+Use media queries to provide fallbacks for Windows and High Contrast Mode.
+```
+
+### Optimization
+Many tools for creating SVG are notorious for including unnecessary markup. We recommend running all SVG through `SVGO(MG)` or using tooling, like `gulp-svgmin`
+
+### Further reading:
+- [SVG Tutorial](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial) – MDN web docs
+- [An Overview of SVG Sprite Creation Techniques](https://24ways.org/2014/an-overview-of-svg-sprite-creation-techniques/)
+- [Using ARIA to enhance SVG accessibility](https://developer.paciellogroup.com/blog/2013/12/using-aria-enhance-svg-accessibility/) – The Paciello Group
+- [Accessible SVG Icons with Inline Sprites 24 Accessibility](https://www.24a11y.com/2018/accessible-svg-icons-with-inline-sprites/)
+- [Accessible SVG test page](https://weboverhauls.github.io/demos/svg/)
+- [Creating Accessible SVGs Deque.com](https://www.deque.com/blog/creating-accessible-svgs/)
+- [Accessible SVGs – CSSTricks.com](https://css-tricks.com/accessible-svgs/)
