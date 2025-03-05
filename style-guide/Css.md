@@ -527,6 +527,7 @@ However, when compiling for production, we need to be much more stringent about 
 *   All comments should be removed
 *   CSS should be minified as much as possible, and no source maps should be pushed
 
+## Related Reading
 *   [CSS Guidelines](https://cssguidelin.es/) by Harry Roberts
 *   [Sensible CSS Guidelines for large scale projects](https://github.com/chris-pearce/css-guidelines) by Chris Pearce
 *   [CSS Specificity](http://cssspecificity.com/)
