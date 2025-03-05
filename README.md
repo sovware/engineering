@@ -1,6 +1,6 @@
 # ⚙️ SovWare Engineering
 
-## 🏁 Intorduction
+## 🏁 Introduction
 - [File Structure](./into/structure.md)
 - [Documentation](./into/documentation.md)
 - [Development Process](./into/process.md)
