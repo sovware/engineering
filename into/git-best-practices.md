@@ -40,10 +40,10 @@ git checkout -b feature/improve-csv-import
 Always pull the latest changes from the base branch before you push your branch or open a PR.
 
 ```bash
-git checkout master # main or master or trunk or dev or development
-git pull origin master
+git checkout dev # dev or development
+git pull origin dev
 git checkout feature/my-work
-git merge master   # or rebase, rebase gives cleaner history btw
+git merge dev   # or rebase, rebase gives cleaner history btw
 ```
 
 ### ✅ 4. Resolve Conflicts Immediately and Carefully
