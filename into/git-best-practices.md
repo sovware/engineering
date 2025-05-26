@@ -1,6 +1,6 @@
 # Git Best Practices
 
-### 1. Git Workflow
+### ✅ 1. Git Workflow
 Always use the `dev` or `development` branch as the base.
 
 **Directorist**
